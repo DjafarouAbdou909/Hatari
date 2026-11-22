@@ -1,29 +1,35 @@
-"""HATARI demonstration interface.
+"""HATARI interface.
 
 Run from the repository root:
 
     streamlit run app/streamlit_app.py
 
-The message is analysed in this process with the local model and rules. It is
-not stored and not sent to any external service.
+The same file is the entry point of the hosted version. The message is analysed
+in the process that serves the page, with the model of app/ressources when it
+exists. It is not stored, not logged and not sent to any other service.
 """
 
 from __future__ import annotations
 
 import html
-import json
+import sys
 from pathlib import Path
 
 import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT / "src") not in sys.path:
+    sys.path.insert(0, str(ROOT / "src"))
+
 from hatari.analysis.risk import CRITICAL, HIGH, LOW, MODERATE
 from hatari.demo.examples import EXAMPLES
 from hatari.service.analyzer import Analyzer, ModelNotFound
+from hatari.models.train import MODEL_FILE
 from hatari.text.preprocessing import MAX_CHARACTERS, InvalidMessage
 
-ROOT = Path(__file__).resolve().parents[1]
+RESOURCES = ROOT / "app" / "ressources"
 LEVEL_COLORS = {LOW: "#2E9E6B", MODERATE: "#E0A526", HIGH: "#E2692B", CRITICAL: "#D64545"}
 STRENGTH_LABELS = {"strong": "fort", "medium": "moyen", "weak": "faible"}
 
@@ -52,6 +58,8 @@ st.markdown(
 
 @st.cache_resource
 def load_analyzer() -> Analyzer:
+    if (RESOURCES / MODEL_FILE).exists():
+        return Analyzer(RESOURCES)
     return Analyzer()
 
 
@@ -171,8 +179,9 @@ st.markdown('<p class="tagline">Think before you trust. <i>Hatari</i> signifie �
             unsafe_allow_html=True)
 st.markdown("Collez un message reçu par SMS, WhatsApp ou e-mail. HATARI repère les signes d'arnaque et explique "
             "pourquoi le message peut être dangereux.")
-st.info("🔒 Votre message est analysé sur cet appareil. Il n'est ni conservé, ni envoyé à un service extérieur. "
-        "Les liens du message ne sont jamais ouverts.")
+st.info("🔒 Le message est analysé par le serveur qui affiche cette page, votre ordinateur en local ou l'hébergeur "
+        "en ligne. HATARI ne le conserve pas, ne l'écrit dans aucun journal et ne l'envoie à aucun autre service. "
+        "Les liens du message ne sont jamais ouverts. Évitez d'y laisser un code secret ou un numéro de compte.")
 
 try:
     analyzer = load_analyzer()
