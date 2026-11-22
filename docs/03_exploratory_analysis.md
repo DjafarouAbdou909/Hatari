@@ -38,11 +38,11 @@ Share of messages matching an exploratory pattern. These patterns are not the si
 
 ## 3.4 Distinctive words
 
-Words with the largest ratio of document frequency between classes.
+Words with the largest ratio of document frequency between classes. Ties are ordered alphabetically, a correction of 22 November 2026, since the first version of this list depended on the hashing order of Python and changed slightly between runs.
 
-- English suspicious: claim, prize, won, guaranteed, http, awarded, ppm, cs, valid, uk, tone, pobox, winner, ringtone, bonus.
-- English legitimate: gt, lt, i'll, he, lor, ü, later, too, she, happy, doing, said, let, morning, lol.
-- French suspicious: une, ne, avant, offre, appareil, vos, lien, contactez, alerte, sur, ouvrez, recevoir, code, prévu, payez.
+- English suspicious: claim, prize, won, guaranteed, http, awarded, ppm, cs, valid, uk, tone, pobox, winner, ringtone, kyc.
+- English legitimate: gt, lt, i'll, he, lor, ü, later, too, she, doing, happy, said, let, morning, lol.
+- French suspicious: une, ne, offre, avant, vos, appareil, sur, ouvrez, lien, contactez, alerte, service, recevoir, prévu, payez.
 - French legitimate: bientôt, bien, réservation, confirmée, enregistrée, je, merci, h, vers, retour, tu, et, est, à, bonjour.
 
 Observations.
