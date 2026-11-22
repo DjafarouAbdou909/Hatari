@@ -100,6 +100,10 @@ tests/                  unit and integration tests
 7. [Signals, threat categories and risk score](docs/07_risk_methodology.md)
 8. [Demonstration scenario](docs/08_demonstration.md)
 
+Research studies, each preregistered before any computation:
+
+- [Robustness to obfuscated messages](docs/research_obfuscation.md)
+
 ## Notebooks
 
 Each notebook runs the tests of its phase and reproduces the figures of the matching document. They are executed and committed with their outputs.
