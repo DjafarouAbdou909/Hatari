@@ -31,7 +31,7 @@ The model was selected by grouped cross-validation among 26 configurations, unde
 
 The French figures are not evidence. Those texts are synthetic and come from very few template families. In cross-validation, the model flagged 33 of 47 legitimate French texts as suspicious. See the limitations below.
 
-In cross-validation, a character n-gram SVM was significantly better than the selected model, by 0.010 of F1. The selection rule, fixed before training, treated this gap as equivalent. The selected model was kept to avoid a choice informed by the test, and the comparison is left to a next version (`docs/05_model_comparison.md`, section 5.6).
+In cross-validation, a character n-gram SVM was significantly better than the selected model, by 0.0096 of F1. The selection rule, fixed before training, treated this gap as equivalent. The selected model was kept to avoid a choice informed by the test, and the comparison is left to a next version (`docs/05_model_comparison.md`, section 5.6).
 
 ## Limitations
 
@@ -45,7 +45,7 @@ The first improvement would be a consented and anonymised collection of real Fre
 
 ## Installation
 
-Python 3.11 or later.
+Python 3.12. The pinned versions also install on Python 3.11 and 3.13, not on later versions.
 
 ```bash
 python3 -m venv .venv
@@ -64,11 +64,14 @@ For the exact versions used to produce the reported results: `.venv/bin/pip inst
 .venv/bin/python -m hatari.models.selection     # cross-validation of the candidates, about 6 minutes
 .venv/bin/python -m hatari.models.train         # final model, into models/
 .venv/bin/python -m hatari.models.evaluate      # single test evaluation, into reports/
+.venv/bin/python -m hatari.models.intervals     # confidence intervals of the reported scores
 .venv/bin/python -m hatari.analysis.signal_check
+.venv/bin/python -m hatari.research.obfuscation # preregistered robustness study, about 15 minutes
+.venv/bin/python -m hatari.models.export        # copy of the model used by the hosted interface
 .venv/bin/python -m pytest
 ```
 
-The raw data and the trained model are not versioned. The commands above rebuild them.
+The raw data and the model of `models/` are not versioned, and the commands above rebuild them. Only the copy used by the hosted interface is versioned, in `app/ressources`.
 
 ## Run
 
@@ -81,12 +84,13 @@ Both work without internet access once the model is trained. Messages are analys
 
 ## Deployment
 
-The interface is deployed on Streamlit Community Cloud from this repository, with `app/streamlit_app.py` as entry point, Python 3.12 and the dependencies of `requirements.txt`. The hosted version uses the model versioned in `app/ressources`, refreshed after any retraining by `python -m hatari.models.export`. Details are in `docs/09_model_card.md`.
+The interface is prepared for Streamlit Community Cloud, from this repository, with `app/streamlit_app.py` as entry point, Python 3.12 and the dependencies of `requirements.txt`. The hosted version uses the model versioned in `app/ressources`, refreshed after any retraining by `python -m hatari.models.export`. Details are in `docs/09_model_card.md`.
 
 ## Repository
 
 ```
 app/                    Streamlit interface
+app/ressources/         model used by the hosted interface
 docs/                   documentation, in the order of the work
 notebooks/              executed notebooks, one per phase
 reports/                cross-validation and test results
@@ -96,6 +100,7 @@ src/hatari/models/      candidates, selection, training, evaluation
 src/hatari/analysis/    exploratory analysis, signals, risk
 src/hatari/service/     prediction service
 src/hatari/api/         FastAPI application
+src/hatari/research/    preregistered studies
 src/hatari/demo/        synthetic demonstration messages
 tests/                  unit and integration tests
 ```
