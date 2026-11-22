@@ -31,6 +31,10 @@ EXAMPLES = (
     Example("Colis en attente", "Fraude évidente, en anglais",
             "Your parcel is on hold. Pay the 2.99 GBP delivery fee within 24 hours at http://bit.ly/parcel-fee "
             "or it will be returned."),
+    Example("Arnaque maquillée", "Fraude déguisée",
+            # The letters \u043e are Cyrillic o and \u200b is an invisible space, as used to evade filters.
+            "V\u043etre c\u043empte Orange M\u043eney sera susp\u200bendu. C\u043emmuniquez v\u043etre c\u043ede "
+            "secret au 07 00 00 00 00 imm\u200bédiatement."),
     Example("Rendez-vous", "Message légitime",
             "Salut, la réunion de demain est déplacée à 15 h. Je t'envoie l'adresse ce soir. Bonne soirée !"),
     Example("Notification de dépôt", "Message ambigu",
