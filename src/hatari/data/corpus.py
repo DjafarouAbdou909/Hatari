@@ -49,7 +49,7 @@ def english_corpus(uci: pd.DataFrame, mendeley: pd.DataFrame) -> pd.DataFrame:
 def assign_english_split(frame: pd.DataFrame, seed: int = SEED) -> pd.Series:
     """Hold out one of five stratified folds of templates as the test set."""
     folds = StratifiedGroupKFold(n_splits=TEST_FOLDS, shuffle=True, random_state=seed)
-    _, test_index = next(folds.split(frame, frame["suspicious"], frame["group"]))
+    _, test_index = next(folds.split(frame, frame["suspicious"].astype(bool), frame["group"]))
     split = pd.Series(TRAIN, index=frame.index)
     split.iloc[test_index] = TEST
     return split
