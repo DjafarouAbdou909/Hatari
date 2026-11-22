@@ -69,7 +69,7 @@ def gauge(score: int, color: str) -> go.Figure:
                "steps": [{"range": [0, 25], "color": "#173A2E"}, {"range": [25, 50], "color": "#3A3317"},
                          {"range": [50, 75], "color": "#3E2717"}, {"range": [75, 100], "color": "#3E1A1A"}]},
     ))
-    figure.update_layout(height=200, margin={"l": 20, "r": 20, "t": 10, "b": 0}, paper_bgcolor="rgba(0,0,0,0)",
+    figure.update_layout(height=210, margin={"l": 35, "r": 45, "t": 20, "b": 0}, paper_bgcolor="rgba(0,0,0,0)",
                          font={"color": "#E8EDF5"})
     return figure
 
@@ -80,10 +80,10 @@ def composition(model_points: float, signal_points: int) -> go.Figure:
                    hovertemplate="Modèle : %{x:.0f} points<extra></extra>")
     figure.add_bar(y=["Score"], x=[signal_points], orientation="h", name="Signaux", marker_color="#E2692B",
                    hovertemplate="Signaux : %{x} points<extra></extra>")
-    figure.update_layout(barmode="stack", height=110, margin={"l": 0, "r": 0, "t": 0, "b": 0},
+    figure.update_layout(barmode="stack", height=120, margin={"l": 10, "r": 25, "t": 0, "b": 0},
                          xaxis={"range": [0, 100], "color": "#9FB0C8"}, yaxis={"visible": False},
                          paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
-                         legend={"orientation": "h", "y": -0.6, "font": {"color": "#E8EDF5"}})
+                         legend={"orientation": "h", "y": -0.6, "traceorder": "normal", "font": {"color": "#E8EDF5"}})
     return figure
 
 
@@ -124,7 +124,7 @@ def show_result(result) -> None:
     with model:
         st.markdown("#### Avis du modèle")
         st.caption("Classifieur entraîné sur des messages publics étiquetés.")
-        st.metric("Score du modèle", f"{result.model.score:.2f}", help="Entre 0 et 1. Ce n'est pas une probabilité de fraude.")
+        st.metric("Score du modèle", f"{result.model.score:.2f}".replace(".", ","), help="Entre 0 et 1. Ce n'est pas une probabilité de fraude.")
         st.markdown(result.model.summary)
         if result.model.suspicious_terms:
             terms = "".join(f'<span class="chip">{html.escape(t)}</span>' for t in result.model.suspicious_terms)

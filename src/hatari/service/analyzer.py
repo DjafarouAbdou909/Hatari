@@ -116,7 +116,8 @@ def explain(risk: Risk, model: ModelResult, signals: list[Signal]) -> list[str]:
         sentences.append(f"Signaux observés dans le texte : {names}.")
     else:
         sentences.append("Aucun des signaux recherchés n'a été trouvé dans le texte.")
-    sentences.append(f"Modèle d'apprentissage automatique : score de {model.score:.2f} sur 1. {model.summary}")
+    score = f"{model.score:.2f}".replace(".", ",")
+    sentences.append(f"Modèle d'apprentissage automatique : score de {score} sur 1. {model.summary}")
     sentences.append(
         f"Évaluation finale : {risk.score} sur 100, dont {risk.model_points:.0f} points venant du modèle et "
         f"{risk.signal_points} points venant des signaux. Ce score classe le niveau d'inquiétude, ce n'est pas une "
