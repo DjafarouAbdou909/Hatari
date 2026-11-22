@@ -56,3 +56,18 @@ Two additional diagnostics were run on the same folds for the selected configura
 1. Fit SVM_mask_C1 on the whole training part, with Platt calibration of its margin on the grouped folds, as required by the protocol.
 2. Evaluate it once on the test set.
 3. Analyse its errors.
+
+## 5.6 Confidence intervals, added on 22 November 2026
+
+`python -m hatari.models.intervals` recomputes the out-of-fold predictions of four configurations on the same folds and gives 95% intervals by bootstrap of the message groups, 2,000 draws, seed 0. Results are in `reports/cv_intervals.csv`. English real messages, 4,812 messages in 4,700 groups.
+
+| Configuration | F1 | Interval | F1 minus SVM_mask_C1 | Interval of the difference |
+|---|---:|---|---:|---|
+| SVM_mask_C1, selected | 0.966 | 0.956 to 0.974 | | |
+| SVM-char_normalize_C0.1, best F1 | 0.975 | 0.967 to 0.983 | +0.010 | +0.003 to +0.016 |
+| LR_mask_C10 | 0.962 | 0.952 to 0.972 | -0.004 | -0.007 to 0.000 |
+| NB_mask | 0.820 | 0.795 to 0.844 | -0.146 | -0.170 to -0.123 |
+
+**Finding.** The character n-gram SVM is significantly better than the selected model, by 0.010 of F1, mostly through fewer false positives. The protocol treated differences below 0.01 as equivalent without a test of significance. This margin was too wide for these data.
+
+**Decision.** The selected model is kept. The selection was frozen before the test evaluation, and changing it now would be informed by the test results. A next version should compare the two configurations on new data, such as the independent French evaluation set planned for the next study, under a protocol that requires a paired interval rather than a fixed margin.
