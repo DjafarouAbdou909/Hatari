@@ -2,7 +2,7 @@
 
 ## 6.1 Final model
 
-`python -m hatari.models.train` fits SVM_mask_C1, selected in `docs/05_model_comparison.md`, on the 4,929 training messages. Its margin is turned into a score between 0 and 1 by Platt scaling, fitted on the out-of-fold margins of the same five grouped folds as the selection. The final SVM is then refitted on the whole training part. The decision threshold stays at the default of 0.5, as no other threshold was committed before the test. The model file is not versioned. `models/hatari_model.json` records its configuration, the checksum of the corpus it was trained on and its own checksum.
+`python -m hatari.models.train` fits SVM_mask_C1, selected in `docs/05_model_comparison.md`, on the 4,929 training messages. Its margin is turned into a score between 0 and 1 by Platt scaling, fitted on the out-of-fold margins of the same five grouped folds as the selection. The final SVM is then refitted on the whole training part. The decision threshold stays at the default of 0.5, as no other threshold was committed before the test. The model file of `models/` is not versioned. Since 22 November 2026, a checked copy is versioned in `app/ressources` for the hosted interface. `models/hatari_model.json` records its configuration, the checksum of the corpus it was trained on and its own checksum.
 
 ## 6.2 Test results
 
