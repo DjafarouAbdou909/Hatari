@@ -1,0 +1,5 @@
+hypothesis,perturbation,statistic,value,low,high
+H2,P1,loss of M minus loss of C,0.0012,-0.0146,0.0169
+H2,P2,loss of M minus loss of C,0.0526,0.0354,0.0698
+H2,P3,loss of M minus loss of C,0.0084,-0.0024,0.0189
+H4,P0,precision of M with D minus without D,0.0,0.0,0.0
