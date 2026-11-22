@@ -20,3 +20,4 @@ HATARI (Swahili for *danger*) analyses a suspicious text message and explains wh
 - Real model inference only. No hardcoded predictions, no fabricated metrics.
 - Messages are analysed locally and are not stored or logged.
 - A low score never means that a message is safe.
+# Hatari
