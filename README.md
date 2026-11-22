@@ -106,6 +106,7 @@ tests/                  unit and integration tests
 6. [Final model, test evaluation and error analysis](docs/06_evaluation_and_error_analysis.md)
 7. [Signals, threat categories and risk score](docs/07_risk_methodology.md)
 8. [Demonstration scenario](docs/08_demonstration.md)
+9. [Model card and deployment](docs/09_model_card.md)
 
 Research studies, each preregistered before any computation:
 
