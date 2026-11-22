@@ -10,7 +10,7 @@ The demonstration lasts about five minutes and runs without internet access. Eve
 .venv/bin/streamlit run app/streamlit_app.py
 ```
 
-Open http://localhost:8501 and check that the sidebar lists the seven examples.
+Open http://localhost:8501 and check that the sidebar lists the eight examples.
 
 ## 8.2 Expected results
 
@@ -22,6 +22,7 @@ Computed on 22 November 2026 with the model of `models/hatari_model.json`. They 
 | Faux service client | Less obvious fraud | 99 | Critical | 0.99 | Credential theft, Mobile Money scam, phishing, impersonation |
 | Transfert par erreur | Less obvious fraud | 83 | Critical | 0.65 | Mobile Money scam |
 | Colis en attente | Obvious fraud, English | 98 | Critical | 0.95 | Suspicious link, social engineering |
+| Arnaque maquillée | Fraud disguised with Cyrillic letters and invisible spaces | 99 | Critical | 0.98 | Credential theft, Mobile Money scam, phishing, impersonation, social engineering |
 | Rendez-vous | Legitimate | 1 | Low | 0.03 | Unclassified |
 | Notification de dépôt | Ambiguous | 54 | High | 0.99 | Unclassified |
 | Rappel de facture | Ambiguous | 52 | High | 0.94 | Unclassified |
@@ -35,7 +36,8 @@ Computed on 22 November 2026 with the model of `models/hatari_model.json`. They 
 5. **A legitimate message.** Click "Rendez-vous". The risk is low, and the interface says that this does not guarantee safety.
 6. **Comparison.** The model gives 0.99 to the first message and 0.03 to the second. The signals make the difference visible to the user.
 7. **Training and evaluation.** Open "Comment fonctionne HATARI". Public English SMS, 26 configurations compared by grouped cross-validation, a rule fixed before training, a single test evaluation with an F1 of 0.976 on real English SMS.
-8. **Limitations.** Click "Notification de dépôt". The model scores a plausible legitimate notification as suspicious, while no strong signal is present. This is the bias towards formal French measured in `docs/05_model_comparison.md`, due to the lack of real French messages. It is the first thing to improve.
+8. **A disguised fraud.** Click "Arnaque maquillée". Its « o » are Cyrillic letters and it hides invisible spaces, a common trick to evade filters. The defence of `docs/research_obfuscation_results.md` restores the words, and the evidence is shown in Latin letters.
+9. **Limitations.** Click "Notification de dépôt". The model scores a plausible legitimate notification as suspicious, while no strong signal is present. This is the bias towards formal French measured in `docs/05_model_comparison.md`, due to the lack of real French messages. It is the first thing to improve.
 
 ## 8.4 If something goes wrong
 
