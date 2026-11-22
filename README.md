@@ -1,6 +1,5 @@
 # HATARI
 
-[![tests](https://github.com/DjafarouAbdou909/Hatari/actions/workflows/tests.yml/badge.svg)](https://github.com/DjafarouAbdou909/Hatari/actions/workflows/tests.yml)
 ![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-1.5.2-F7931E)
 ![F1 English test](https://img.shields.io/badge/F1%20English%20test-0.976-success)

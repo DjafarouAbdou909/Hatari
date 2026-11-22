@@ -60,7 +60,7 @@ The French figures come from synthetic texts of few template families and are no
 ## 9.8 Reproducibility
 
 - `requirements-lock.txt` fixes every dependency. The pipeline of the README rebuilds data, model and reports from public sources verified by SHA-256.
-- The tests run on every push through `.github/workflows/tests.yml`.
+- The test suite runs locally with `python -m pytest`.
 
 ## 9.9 Maintenance
 
