@@ -14,6 +14,7 @@ HATARI (Swahili for *danger*) analyses a suspicious text message and explains wh
 - [Modelling protocol](docs/04_modelling_protocol.md)
 - [Model comparison](docs/05_model_comparison.md)
 - [Final model, test evaluation and error analysis](docs/06_evaluation_and_error_analysis.md)
+- [Signals, threat categories and risk score](docs/07_risk_methodology.md)
 
 ## Principles
 
