@@ -18,7 +18,7 @@ STRONG, MEDIUM, WEAK = "strong", "medium", "weak"
 MAX_EVIDENCE = 3
 NEGATION_WINDOW = 40
 
-MONEY_WORDS = r"(?:argent|frais|montant|somme|f ?cfa|cfa|francs?|xof|money|cash|fees?|\$|£|€|\d{3,})"
+MONEY_WORDS = r"(?:argent|frais|montant|somme|f ?cfa|cfa|francs?|xof|money|cash|fees?|\$|£|€|\b\d{3,6}\b)"
 NEAR = r"\W+(?:[\w'’-]+\W+){0,6}?"
 
 
