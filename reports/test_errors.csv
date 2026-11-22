@@ -1,0 +1,14 @@
+message_id,language,sources,original_label,error,score,text
+m02628,en,mendeley_smishing+uci_sms_spam,spam,false_negative,0.0112,How come it takes so little time for a child who is afraid of the dark to become a teenager who wants to stay out all night?
+m05251,en,mendeley_smishing,spam,false_negative,0.0247,"Swayamvara By David Hair,�Swayamvara� (The Return of Ravana Book 2) by David Hair is a story of reincarnation, two swayamvaras, 800 years apart, that sees four lives knotted forever & one rigid force, Ravana reborn."
+m02950,en,mendeley_smishing+uci_sms_spam,spam,false_negative,0.0646,"LookAtMe!: Thanks for your purchase of a video clip from LookAtMe!, you've been charged 35p. Think you can do better? Why not send a video in a MMSto 32323."
+m05137,en,mendeley_smishing,spam,false_negative,0.0879,Overcome programming challenges for multicore and learn the techniques to scale reliability. Attend Intel session at 3.45 PM at Microsoft Community TechDays
+m00933,en,mendeley_smishing+uci_sms_spam,spam,false_negative,0.0903,Filthy stories and GIRLS waiting for your
+m05162,en,mendeley_smishing,smishing,false_negative,0.0971,My name is Theresa & I have 7.3milion Dollar to transfer to you for charity work to help the poor ones in ur place india. Contact memea.theresamarie@gmail.com
+m02624,en,mendeley_smishing+uci_sms_spam,spam,false_negative,0.1104,Burger King - Wanna play footy at a top stadium? Get 2 Burger King before 1st Sept and go Large or Super with Coca-Cola and walk out a winner
+m03745,en,mendeley_smishing+uci_sms_spam,spam,false_negative,0.1583,You will be receiving this week's Triple Echo ringtone shortly. Enjoy it!
+m03153,en,mendeley_smishing+uci_sms_spam,spam,false_negative,0.2093,Sorry I missed your call let's talk when you have the time. I'm on 07090201529
+m04074,en,mendeley_smishing+uci_sms_spam,ham,false_positive,0.5825,Mathews or tait or edwards or anderson
+m06142,fr,french_synthetic,legitimate,false_positive,0.5612,"Objet : Question concernant le dossier
+
+Bonjour, pourriez-vous me préciser la prochaine étape lorsque vous aurez un moment ?"
