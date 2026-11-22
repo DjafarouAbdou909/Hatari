@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "hatari"
 version = "0.1.0"
 description = "Detection and explanation of fraudulent text messages"
-requires-python = ">=3.11"
+requires-python = ">=3.11,<3.14"
 dependencies = [
     "numpy==2.1.3",
     "pandas==2.2.3",
