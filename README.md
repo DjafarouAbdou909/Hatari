@@ -1,5 +1,10 @@
 # HATARI
 
+[![tests](https://github.com/DjafarouAbdou909/Hatari/actions/workflows/tests.yml/badge.svg)](https://github.com/DjafarouAbdou909/Hatari/actions/workflows/tests.yml)
+![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-1.5.2-F7931E)
+![F1 English test](https://img.shields.io/badge/F1%20English%20test-0.976-success)
+
 **Think before you trust.**
 
 HATARI (Swahili for *danger*) analyses a suspicious text message and explains why it may be fraudulent. A user pastes a message and receives a risk level, a score from 0 to 100, the suspected fraud category, the signals found in the text with the exact words that triggered them, the opinion of a machine learning model and recommended actions. The interface is in French.
@@ -46,6 +51,8 @@ Python 3.11 or later.
 python3 -m venv .venv
 .venv/bin/pip install -e ".[api,app,dev]"
 ```
+
+For the exact versions used to produce the reported results: `.venv/bin/pip install -r requirements-lock.txt` then `.venv/bin/pip install --no-deps -e .`
 
 ## Reproduce the pipeline
 
