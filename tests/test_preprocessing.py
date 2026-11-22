@@ -39,3 +39,7 @@ def test_validate_message_rejects_unusable_input(value):
 
 def test_validate_message_accepts_text():
     assert validate_message("Bonjour") == "Bonjour"
+
+
+def test_normalize_applies_the_obfuscation_defence():
+    assert normalize("Vеrify yоur a\u200bccount: v.e.r.i.f.y") == "Verify your account: verify"

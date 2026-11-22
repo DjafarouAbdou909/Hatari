@@ -5,7 +5,9 @@ the model would see different inputs in production. Two levels are provided.
 
 - ``normalize`` only repairs the encoding. It applies Unicode NFKC
   normalisation, decodes HTML entities such as ``&lt;``, which leak the label in
-  the UCI data, and collapses whitespace. It keeps case, digits, links and
+  the UCI data, applies the obfuscation defence of ``hatari.text.defence``,
+  adopted on 22 November 2026 after docs/research_obfuscation_results.md, and
+  collapses whitespace. It keeps case, digits, links and
   currency symbols, which are fraud signals.
 - ``mask_entities`` additionally replaces each link, email address, phone number
   and money amount by a placeholder token. Whether this helps the model to
@@ -17,6 +19,8 @@ from __future__ import annotations
 import html
 import re
 import unicodedata
+
+from .defence import defend
 
 MAX_CHARACTERS = 5000
 
@@ -52,6 +56,7 @@ def validate_message(text: object, max_characters: int = MAX_CHARACTERS) -> str:
 def normalize(text: str) -> str:
     text = unicodedata.normalize("NFKC", text)
     text = html.unescape(text)
+    text = defend(text)
     return re.sub(r"\s+", " ", text).strip()
 
 
