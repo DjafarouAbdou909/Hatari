@@ -61,7 +61,7 @@ def distinctive_words(frame: pd.DataFrame, minimum: int = 15, top: int = 15) -> 
     n_suspicious, n_legitimate = int(frame["suspicious"].sum()), int((~frame["suspicious"]).sum())
     ratio = {word: np.log((suspicious[word] + 1) / (n_suspicious + 2)) - np.log((legitimate[word] + 1) / (n_legitimate + 2))
              for word in set(suspicious) | set(legitimate) if suspicious[word] + legitimate[word] >= minimum}
-    ordered = pd.Series(ratio).sort_values()
+    ordered = pd.Series(ratio).sort_index().sort_values(kind="mergesort")
     return {"suspicious": ordered.tail(top).index[::-1].tolist(), "legitimate": ordered.head(top).index.tolist()}
 
 
