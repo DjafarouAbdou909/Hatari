@@ -48,7 +48,7 @@ The French figures come from synthetic texts of few template families and are no
 - In the hosted version, the message travels to the server of the host, Streamlit Community Cloud, which serves the page. HATARI does not keep it, but the host's own infrastructure is outside the control of the project. The interface says so and advises not to paste secret codes or account numbers.
 - Links in messages are never opened. Evidence excerpts are escaped before display.
 - Input is limited to 5,000 characters and validated before analysis.
-- Streamlit is configured with a local address, so that it makes no external request at start-up.
+- Locally, Streamlit does not run in headless mode, so it makes no external request at start-up. The host of the online version sets its own server options.
 
 ## 9.7 Deployment
 
