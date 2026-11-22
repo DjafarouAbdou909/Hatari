@@ -9,6 +9,7 @@ HATARI (Swahili for *danger*) analyses a suspicious text message and explains wh
 ## Documentation
 
 - [Problem statement and scope](docs/01_problem_statement.md)
+- [Dataset investigation and data audit](docs/02_data_audit.md)
 
 ## Principles
 
