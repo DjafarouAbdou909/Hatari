@@ -68,3 +68,14 @@ All 11 errors are listed in `reports/test_errors.csv`.
 - The risk shown to the user combines the model score with observed signals. Each signal is traced to the text, so that the user can judge a false alarm such as a formal French message.
 - A low score never means that a message is safe. A message such as the advance-fee one above can obtain a low model score.
 - Short messages and French messages call for an explicit warning of lower reliability.
+
+## 6.6 Confidence intervals, added on 22 November 2026
+
+`python -m hatari.models.intervals` applies the saved model to the test set again, reproducing the predictions of section 6.2, and adds 95% intervals by bootstrap of the message groups. Results are in `reports/test_intervals.csv`. No choice is made from them.
+
+| Test set | Groups | Precision | Recall | F1 |
+|---|---:|---|---|---|
+| English real, 1,196 messages | 1,175 | 0.984 to 1.000 | 0.928 to 0.981 | 0.959 to 0.989 |
+| French synthetic, 44 texts | 18 | 0.786 to 1.000 | 1.000 to 1.000 | 0.880 to 1.000 |
+
+The English interval is narrow because the test set is large and its messages are nearly independent. The French interval rests on 18 groups only, and its recall of 1 on 14 groups says little about real French fraud.
