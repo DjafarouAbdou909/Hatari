@@ -4,8 +4,9 @@ Usage, from the repository root, after python -m hatari.data.corpus:
 
     python -m hatari.research.obfuscation
 
-Writes data/interim/obfuscation_predictions.csv.gz, one row per English held-out
-message, and reports/obfuscation_results.csv.
+or, to recompute only the hypothesis intervals from saved predictions,
+python -m hatari.research.obfuscation tests. Writes data/interim/obfuscation_predictions.csv.gz, one row per English held-out
+message, reports/obfuscation_results.csv and reports/obfuscation_hypotheses.csv.
 """
 
 from __future__ import annotations
@@ -20,7 +21,7 @@ from sklearn.metrics import precision_score, recall_score
 from hatari.analysis.signals import MEDIUM, STRONG, detect
 from hatari.models.candidates import Candidate, build, decision_scores, default_threshold
 from hatari.models.selection import REPORTS_DIR, fold_assignment, load_training
-from hatari.models.uncertainty import paired_difference
+from hatari.models.uncertainty import DRAWS, _group_index, paired_difference
 from hatari.text.defence import defend
 
 INTERIM_DIR = Path(__file__).resolve().parents[3] / "data" / "interim"
@@ -117,6 +118,43 @@ def results(rows: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(table)
 
 
+def _bootstrap(statistic, truth, groups, draws: int = DRAWS, seed: int = SEED) -> tuple[float, float, float]:
+    _, members = _group_index(groups)
+    generator = np.random.default_rng(seed)
+    values = np.empty(draws)
+    for draw in range(draws):
+        index = np.concatenate([members[position] for position in generator.integers(0, len(members), len(members))])
+        values[draw] = statistic(index)
+    everything = np.arange(len(truth))
+    return float(statistic(everything)), float(np.percentile(values, 2.5)), float(np.percentile(values, 97.5))
+
+
+def hypothesis_tests(rows: pd.DataFrame) -> pd.DataFrame:
+    """Paired intervals for H2, loss of M minus loss of C, and for H4, precision change of M under the defence."""
+    truth, groups = rows["suspicious"].to_numpy(), rows["group"].to_numpy()
+    tests = []
+    for code in ["P1", "P2", "P3"]:
+        columns = {name: rows[name].to_numpy() for name in ["M_N_P0", f"M_N_{code}", "C_N_P0", f"C_N_{code}"]}
+
+        def loss_gap(index, code=code, columns=columns):
+            recall = {name: recall_score(truth[index], values[index]) for name, values in columns.items()}
+            return (recall["M_N_P0"] - recall[f"M_N_{code}"]) - (recall["C_N_P0"] - recall[f"C_N_{code}"])
+
+        value, low, high = _bootstrap(loss_gap, truth, groups)
+        tests.append({"hypothesis": "H2", "perturbation": code, "statistic": "loss of M minus loss of C",
+                      "value": value, "low": low, "high": high})
+    without, with_defence = rows["M_N_P0"].to_numpy(), rows["M_D_P0"].to_numpy()
+
+    def precision_change(index):
+        return (precision_score(truth[index], with_defence[index], zero_division=0)
+                - precision_score(truth[index], without[index], zero_division=0))
+
+    value, low, high = _bootstrap(precision_change, truth, groups)
+    tests.append({"hypothesis": "H4", "perturbation": "P0", "statistic": "precision of M with D minus without D",
+                  "value": value, "low": low, "high": high})
+    return pd.DataFrame(tests)
+
+
 def main() -> None:
     rows = predictions(load_training())
     INTERIM_DIR.mkdir(parents=True, exist_ok=True)
@@ -125,7 +163,20 @@ def main() -> None:
     REPORTS_DIR.mkdir(exist_ok=True)
     table.round(4).to_csv(REPORTS_DIR / "obfuscation_results.csv", index=False)
     print(table.round(3).to_string(index=False))
+    tests = hypothesis_tests(rows)
+    tests.round(4).to_csv(REPORTS_DIR / "obfuscation_hypotheses.csv", index=False)
+    print(tests.round(4).to_string(index=False))
+
+
+def tests_only() -> None:
+    """Recompute the hypothesis intervals from the saved predictions, without retraining."""
+    rows = pd.read_csv(INTERIM_DIR / "obfuscation_predictions.csv.gz", index_col=0)
+    tests = hypothesis_tests(rows)
+    tests.round(4).to_csv(REPORTS_DIR / "obfuscation_hypotheses.csv", index=False)
+    print(tests.round(4).to_string(index=False))
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+
+    tests_only() if sys.argv[1:] == ["tests"] else main()
