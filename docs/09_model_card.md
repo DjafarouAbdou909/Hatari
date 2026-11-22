@@ -53,9 +53,10 @@ The French figures come from synthetic texts of few template families and are no
 ## 9.7 Deployment
 
 - **Local.** `streamlit run app/streamlit_app.py`, with no internet access needed once installed.
-- **Hosted.** Streamlit Community Cloud, from the GitHub repository, entry point `app/streamlit_app.py`, Python 3.12, dependencies of `requirements.txt`. The application is redeployed at each push to `main`.
+- **Hosted.** Streamlit Community Cloud, from the GitHub repository, entry point `app/streamlit_app.py`, Python 3.12, dependencies of `app/requirements.txt`. The application is redeployed at each push to `main`.
 - **Model of the hosted version.** `app/ressources/hatari_model.joblib`, versioned because a host cannot run the pipeline. Its checksum is checked against `app/ressources/hatari_model.json` by `tests/test_export.py`. After any retraining, run `python -m hatari.models.export` and commit both files.
-- The deployment was rehearsed on 22 November 2026 in a fresh environment installed from `requirements.txt` only, with an analysis run in a browser.
+- On the first hosted deployment, the host read `pyproject.toml` instead of the root `requirements.txt` and did not install Plotly. The file was moved to `app/requirements.txt`, which the host reads first.
+- The deployment was rehearsed on 22 November 2026 in a fresh environment installed from the runtime dependency file only, with an analysis run in a browser.
 
 ## 9.8 Reproducibility
 

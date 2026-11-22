@@ -83,7 +83,7 @@ Both work without internet access once the model is trained. Messages are analys
 
 ## Deployment
 
-The interface is prepared for Streamlit Community Cloud, from this repository, with `app/streamlit_app.py` as entry point, Python 3.12 and the dependencies of `requirements.txt`. The hosted version uses the model versioned in `app/ressources`, refreshed after any retraining by `python -m hatari.models.export`. Details are in `docs/09_model_card.md`.
+The interface is prepared for Streamlit Community Cloud, from this repository, with `app/streamlit_app.py` as entry point, Python 3.12 and the dependencies of `app/requirements.txt`, placed next to the entry point so that the host reads it before `pyproject.toml`. The hosted version uses the model versioned in `app/ressources`, refreshed after any retraining by `python -m hatari.models.export`. Details are in `docs/09_model_card.md`.
 
 ## Repository
 
