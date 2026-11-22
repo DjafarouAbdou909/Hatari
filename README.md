@@ -19,12 +19,14 @@ HATARI is an academic project. It is a decision aid. It does not verify senders,
 
 The model was selected by grouped cross-validation among 26 configurations, under a rule committed before training, then evaluated once on held-out data.
 
-| Test set | Messages | Precision | Recall | F1 | False positives | Missed |
-|---|---:|---:|---:|---:|---:|---:|
-| Real English SMS | 1,196 | 0.995 | 0.957 | 0.976 | 1 | 9 of 209 |
-| Synthetic French texts | 44 | 0.933 | 1.000 | 0.966 | 1 | 0 of 14 |
+| Test set | Messages | Precision | Recall | F1, with 95% interval | False positives | Missed |
+|---|---:|---:|---:|---|---:|---:|
+| Real English SMS | 1,196 | 0.995 | 0.957 | 0.976, 0.959 to 0.989 | 1 | 9 of 209 |
+| Synthetic French texts | 44 | 0.933 | 1.000 | 0.966, 0.880 to 1.000 | 1 | 0 of 14 |
 
 The French figures are not evidence. Those texts are synthetic and come from very few template families. In cross-validation, the model flagged 33 of 47 legitimate French texts as suspicious. See the limitations below.
+
+In cross-validation, a character n-gram SVM was significantly better than the selected model, by 0.010 of F1. The selection rule, fixed before training, treated this gap as equivalent. The selected model was kept to avoid a choice informed by the test, and the comparison is left to a next version (`docs/05_model_comparison.md`, section 5.6).
 
 ## Limitations
 
