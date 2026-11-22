@@ -9,7 +9,8 @@ Partition. Messages that differ only by their digits share a template key and
 always fall in the same part. One fifth of the English templates is held out as
 the test set, stratified on the target. The French synthetic data keeps its
 published split, which already separates its template families, and its
-validation part joins its training part.
+validation part joins its training part. Its label-revealing generator markers
+are removed first, which leaves 161 distinct texts out of 10,000 messages.
 
 Usage, from the repository root:
 
@@ -24,6 +25,7 @@ import pandas as pd
 from sklearn.model_selection import StratifiedGroupKFold
 
 from .audit import exact_key, template_key
+from .cleaning import strip_generator_markers
 from .sources import load_all
 
 PROCESSED_DIR = Path(__file__).resolve().parents[3] / "data" / "processed"
@@ -56,12 +58,16 @@ def assign_english_split(frame: pd.DataFrame, seed: int = SEED) -> pd.Series:
 
 
 def french_corpus(synthetic: pd.DataFrame) -> pd.DataFrame:
+    """Strip the generator markers, then keep one row per distinct text."""
     frame = synthetic.copy()
+    frame["text"] = frame["text"].map(strip_generator_markers)
     frame["key"] = frame["text"].map(exact_key)
     frame["sources"] = frame["source"]
     frame["group"] = frame["template_group"]
     frame["split"] = frame["published_split"].replace({"validation": TRAIN})
-    return frame
+    if frame.groupby("key")["split"].nunique().gt(1).any():
+        raise ValueError("a cleaned synthetic text appears in several published splits")
+    return frame.drop_duplicates("key", keep="first").reset_index(drop=True)
 
 
 def build_corpus(sources: dict[str, pd.DataFrame] | None = None) -> pd.DataFrame:

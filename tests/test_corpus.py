@@ -50,3 +50,23 @@ def test_french_corpus_moves_validation_into_training():
 
     assert corpus["split"].tolist() == [TRAIN, TRAIN, TEST]
     assert corpus["group"].tolist() == ["g1", "g2", "g3"]
+
+
+def test_french_corpus_removes_markers_and_resulting_duplicates():
+    synthetic = pd.DataFrame({"source": "french_synthetic",
+                              "text": ["Merci, à bientôt. [référence SM-00001]", "Merci, à bientôt. [référence SM-00002]",
+                                       "Confirmez vos données. Dossier Lyon-1000."],
+                              "published_split": ["train", "train", "test"], "template_group": ["g1", "g1", "g2"]})
+
+    corpus = french_corpus(synthetic)
+
+    assert corpus["text"].tolist() == ["Merci, à bientôt.", "Confirmez vos données."]
+
+
+def test_french_corpus_rejects_a_cleaned_text_in_two_splits():
+    synthetic = pd.DataFrame({"source": "french_synthetic",
+                              "text": ["Merci. [référence SM-00001]", "Merci. [référence EM-00002]"],
+                              "published_split": ["train", "test"], "template_group": ["g1", "g2"]})
+
+    with pytest.raises(ValueError):
+        french_corpus(synthetic)
