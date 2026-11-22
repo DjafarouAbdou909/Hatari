@@ -19,7 +19,7 @@ No public dataset of real French fraudulent messages, and none from Côte d'Ivoi
 |---|---:|---:|---:|---:|---:|---:|---:|
 | UCI | 5,574 | 747 | 13.4% | 447 | 5,127 | 5,094 | 0 |
 | Mendeley | 5,971 | 1,127 | 18.9% | 147 | 5,824 | 5,701 | 145 |
-| French synthetic | 10,000 | 5,000 | 50.0% | 0 | 10,000 | 441 | 0 |
+| French synthetic, as published | 10,000 | 5,000 | 50.0% | 0 | 10,000 | 441 | 0 |
 
 - A duplicate is the same text up to case, spacing and punctuation. A template is a text up to its digits, so that messages that differ only by a phone number, amount or reference share a template.
 - No text carries both a legitimate and a suspicious label within one source.
@@ -57,7 +57,15 @@ It is downloaded for transparency, but it is not used.
 - Its spam categories are phishing 1,750, scam 1,250, commercial 500, subscription or premium 500, sextortion or blackmail 500, malware or dangerous link 250, other 250.
 - The references are French, for example Lyon or Nantes, and not Ivorian. Amounts in FCFA and Mobile Money operators are absent or rare.
 
-**Consequence.** Scores on this set measure how well a model recognises the generator's templates, not real French fraud. They are reported separately and are never presented as real-world evidence.
+**Label leakage from the generator.** Found during the exploratory analysis of the training part.
+
+- Every legitimate message ends with a reference such as `[référence SM-00001]` or `[référence EM-01837]`, and no suspicious message does.
+- Every suspicious message contains a fragment such as `Dossier Lyon-1000.`, and no legitimate message does.
+- A model could reach a near perfect score by reading these markers alone. They are removed by `hatari.data.cleaning` before any use.
+- Once they are removed, the 10,000 messages reduce to 161 distinct texts, 77 legitimate and 84 suspicious. The corpus keeps one row per distinct text, 117 in training and 44 in test.
+- After cleaning, 30% of the legitimate texts contain digits, such as times, and none of the suspicious texts do. Real fraud usually contains amounts and phone numbers. This set therefore teaches a misleading association, which must be watched in the error analysis.
+
+**Consequence.** The French synthetic data is a small supplement of 161 texts. Scores on its 44 test texts measure how well a model recognises the generator's phrasing, not real French fraud. They are reported separately and are never presented as real-world evidence.
 
 ## 2.6 Target and grouping decisions
 

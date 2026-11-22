@@ -12,6 +12,7 @@ import unicodedata
 
 import pandas as pd
 
+from .cleaning import LEGITIMATE_MARKER, SPAM_MARKER, strip_generator_markers
 from .download import RAW_DIR
 from .sources import load_all
 
@@ -71,6 +72,19 @@ def split_leakage(frame: pd.DataFrame, split: str = "published_split") -> dict:
     }
 
 
+def generator_markers(frame: pd.DataFrame) -> dict:
+    """How the generator markers reveal the label, and what remains once they are removed."""
+    cleaned = frame["text"].map(strip_generator_markers)
+    by_label = frame.groupby("suspicious")
+    return {
+        "legitimate_marker_by_label": by_label["text"].apply(lambda s: s.str.contains(LEGITIMATE_MARKER).mean()).to_dict(),
+        "spam_marker_by_label": by_label["text"].apply(lambda s: s.str.contains(SPAM_MARKER).mean()).to_dict(),
+        "distinct_cleaned_texts": int(cleaned.map(exact_key).nunique()),
+        "distinct_cleaned_texts_by_label": cleaned.map(exact_key).groupby(frame["suspicious"]).nunique().to_dict(),
+        "cleaned_with_digits_by_label": cleaned.str.contains(r"\d").groupby(frame["suspicious"]).mean().round(3).to_dict(),
+    }
+
+
 def translated_french_defects(raw_dir=RAW_DIR) -> dict:
     """Lines of the machine-translated French file that do not follow its label,text,,, layout."""
     lines = (raw_dir / "french_translated.csv").read_text(encoding="utf-8").split("\n")
@@ -94,6 +108,7 @@ def main() -> None:
     print("french_synthetic splits", synthetic["published_split"].value_counts().to_dict())
     print("french_synthetic categories", synthetic["spam_category"].value_counts().to_dict())
     print("french_synthetic leakage", split_leakage(synthetic))
+    print("french_synthetic markers", generator_markers(synthetic))
     print("french_translated defects", translated_french_defects())
 
 
