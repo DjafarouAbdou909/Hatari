@@ -8,6 +8,9 @@ font = "sans serif"
 
 [browser]
 gatherUsageStats = false
+# Local address only. It also stops Streamlit from querying an external service for the public IP,
+# which failed on some networks and is not wanted for an offline demonstration.
+serverAddress = "localhost"
 
 [server]
 headless = true
