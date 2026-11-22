@@ -79,3 +79,11 @@ All 11 errors are listed in `reports/test_errors.csv`.
 | French synthetic, 44 texts | 18 | 0.786 to 1.000 | 1.000 to 1.000 | 0.880 to 1.000 |
 
 The English interval is narrow because the test set is large and its messages are nearly independent. The French interval rests on 18 groups only, and its recall of 1 on 14 groups says little about real French fraud.
+
+## 6.7 Retraining with the obfuscation defence, 22 November 2026
+
+After the study of `docs/research_obfuscation_results.md`, the obfuscation defence was integrated into `normalize`, as its plan required, and the model was retrained with the same frozen configuration. The saved model was then applied once more to the test set.
+
+- The test scores and the list of misclassified messages are identical to those of sections 6.2 and 6.4, to the fourth decimal. No test message contains invisible characters, look-alike letters or four separated letters that the defence would change.
+- The intervals of section 6.6 are therefore unchanged.
+- The new model file is described by `models/hatari_model.json`.
