@@ -15,6 +15,7 @@ dependencies = [
 
 [project.optional-dependencies]
 api = ["fastapi==0.115.6", "uvicorn==0.32.1"]
+app = ["streamlit==1.40.2", "plotly==5.24.1"]
 dev = ["pytest==8.3.3", "httpx==0.28.1"]
 
 [tool.setuptools.packages.find]
