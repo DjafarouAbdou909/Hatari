@@ -102,5 +102,5 @@ Before the interface uses the score, the signals are measured on the training pa
 
 - The weights and thresholds are design choices. With no real French or West African data, they cannot be calibrated against observed fraud.
 - An advance-fee message that promises a large sum and gives an email address, without an explicit request for money, scores low. The test message of `docs/06_evaluation_and_error_analysis.md`, "I have 7.3milion Dollar to transfer to you… Contact …@gmail.com", obtains 23 out of 100 with the category "prize or lottery scam". The weights are not changed to fix this case, because it comes from the test set and a change would tune the method on it.
-- The specification example of section 4 of the brief obtains 95 out of 100 and a high risk, not a critical one, because it contains only one strong signal. The method was not adjusted to reproduce the example.
+- The example of the project brief, "Félicitations ! Vous venez de gagner 250 000 FCFA… envoyez immédiatement 2 000 FCFA de frais…", obtains 95 out of 100 and a high risk, not a critical one, because it contains only one strong signal. The method was not adjusted to reproduce the example.
 - The language guess relies on frequent function words and can fail on very short or mixed messages.
