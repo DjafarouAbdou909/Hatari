@@ -21,3 +21,6 @@ data/interim/
 .idea/
 .DS_Store
 data/processed/
+
+# Trained model, rebuilt with python -m hatari.models.train
+models/*.joblib
