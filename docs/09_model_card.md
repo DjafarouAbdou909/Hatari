@@ -4,7 +4,7 @@
 |---|---|
 | System | HATARI 0.1.0, analysis of suspicious text messages |
 | Model | SVM_mask_C1, linear SVM on word unigrams and bigrams after entity masking, Platt calibration |
-| Artefact | `models/hatari_model.joblib`, rebuilt by `python -m hatari.models.train`, described by `models/hatari_model.json` |
+| Artefact | `models/hatari_model.joblib`, rebuilt by `python -m hatari.models.train`, described by `models/hatari_model.json`. The deployed copy is `app/ressources/hatari_model.joblib`, written by `python -m hatari.models.export` |
 | Code | `src/hatari/`, `app/streamlit_app.py` |
 | Interfaces | Streamlit page in French, FastAPI endpoint `POST /analyze` |
 
@@ -44,17 +44,25 @@ The French figures come from synthetic texts of few template families and are no
 
 ## 9.6 Privacy and security
 
-- Messages are analysed in memory. They are not stored, not logged and not sent to any external service.
+- Messages are analysed in memory by the process that serves the page. They are not stored, not logged and not sent to any other service.
+- In the hosted version, the message travels to the server of the host, Streamlit Community Cloud, which serves the page. HATARI does not keep it, but the host's own infrastructure is outside the control of the project. The interface says so and advises not to paste secret codes or account numbers.
 - Links in messages are never opened. Evidence excerpts are escaped before display.
 - Input is limited to 5,000 characters and validated before analysis.
 - Streamlit is configured with a local address, so that it makes no external request at start-up.
 
-## 9.7 Reproducibility
+## 9.7 Deployment
+
+- **Local.** `streamlit run app/streamlit_app.py`, with no internet access needed once installed.
+- **Hosted.** Streamlit Community Cloud, from the GitHub repository, entry point `app/streamlit_app.py`, Python 3.12, dependencies of `requirements.txt`. The application is redeployed at each push to `main`.
+- **Model of the hosted version.** `app/ressources/hatari_model.joblib`, versioned because a host cannot run the pipeline. Its checksum is checked against `app/ressources/hatari_model.json` by `tests/test_export.py`. After any retraining, run `python -m hatari.models.export` and commit both files.
+- The deployment was rehearsed on 22 November 2026 in a fresh environment installed from `requirements.txt` only, with an analysis run in a browser.
+
+## 9.8 Reproducibility
 
 - `requirements-lock.txt` fixes every dependency. The pipeline of the README rebuilds data, model and reports from public sources verified by SHA-256.
 - The tests run on every push through `.github/workflows/tests.yml`.
 
-## 9.8 Maintenance
+## 9.9 Maintenance
 
 - Retraining with new data requires a new selection protocol and a new held-out set. The current test set has already been used.
 - Any change of the signals is checked with `python -m hatari.analysis.signal_check` and recorded in `docs/07_risk_methodology.md`.
