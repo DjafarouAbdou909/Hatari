@@ -67,3 +67,7 @@ def test_every_definition_has_a_french_label_and_a_known_strength():
 def test_a_phone_number_is_not_an_amount_requested():
     assert "money_request" not in ids("Envoyez votre code secret au 0707070707.")
     assert "money_request" in ids("Envoyez 5000 au numéro indiqué.")
+
+
+def test_a_noun_announcing_suspension_is_an_account_threat():
+    assert "account_threat" in ids("Merci de répondre afin d'éviter la suspension de votre ligne.")

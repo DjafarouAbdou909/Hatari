@@ -83,6 +83,8 @@ DEFINITIONS: tuple[SignalDefinition, ...] = (
             r"\b(?:compte|account|carte|card|ligne|sim|acces|access)" + NEAR +
             r"(?:suspendu|bloque|desactive|ferme|restreint|suspended|blocked|locked|disabled|closed|restricted|"
             r"deactivated)",
+            r"\b(?:suspension|blocage|fermeture|desactivation) (?:de |d')?(?:votre |ton |your )?"
+            r"(?:compte|ligne|carte|account|line|card)\b",
             r"\b(?:verif|confirm|mettre a jour|mettez a jour|update|reactiv|debloqu|unlock)\w*\W+"
             r"(?:\w+\W+){0,2}?(?:votre |your )?(?:compte|account|identite|identity)\b",
         )),
