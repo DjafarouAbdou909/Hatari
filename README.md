@@ -77,6 +77,7 @@ Both work without internet access once the model is trained. Messages are analys
 ```
 app/                    Streamlit interface
 docs/                   documentation, in the order of the work
+notebooks/              executed notebooks, one per phase
 reports/                cross-validation and test results
 src/hatari/data/        download, loading, cleaning, audit, corpus
 src/hatari/text/        normalisation, entity masking, input validation
@@ -98,6 +99,20 @@ tests/                  unit and integration tests
 6. [Final model, test evaluation and error analysis](docs/06_evaluation_and_error_analysis.md)
 7. [Signals, threat categories and risk score](docs/07_risk_methodology.md)
 8. [Demonstration scenario](docs/08_demonstration.md)
+
+## Notebooks
+
+Each notebook runs the tests of its phase and reproduces the figures of the matching document. They are executed and committed with their outputs.
+
+| Notebook | Document |
+|---|---|
+| [01_data_audit](notebooks/01_data_audit.ipynb) | `docs/02_data_audit.md` |
+| [02_exploratory_analysis](notebooks/02_exploratory_analysis.ipynb) | `docs/03_exploratory_analysis.md` |
+| [03_model_selection](notebooks/03_model_selection.ipynb) | `docs/05_model_comparison.md` |
+| [04_test_evaluation](notebooks/04_test_evaluation.ipynb) | `docs/06_evaluation_and_error_analysis.md` |
+| [05_signals_and_risk](notebooks/05_signals_and_risk.ipynb) | `docs/07_risk_methodology.md` |
+
+To run them: `.venv/bin/pip install -e ".[notebooks]"`, then `.venv/bin/jupyter nbconvert --to notebook --execute --inplace notebooks/*.ipynb`.
 
 ## Data sources and licences
 
