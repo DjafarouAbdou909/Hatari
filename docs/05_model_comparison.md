@@ -64,9 +64,9 @@ Two additional diagnostics were run on the same folds for the selected configura
 | Configuration | F1 | Interval | F1 minus SVM_mask_C1 | Interval of the difference |
 |---|---:|---|---:|---|
 | SVM_mask_C1, selected | 0.966 | 0.956 to 0.974 | | |
-| SVM-char_normalize_C0.1, best F1 | 0.975 | 0.967 to 0.983 | +0.010 | +0.003 to +0.016 |
-| LR_mask_C10 | 0.962 | 0.952 to 0.972 | -0.004 | -0.007 to 0.000 |
-| NB_mask | 0.820 | 0.795 to 0.844 | -0.146 | -0.170 to -0.123 |
+| SVM-char_normalize_C0.1, best F1 | 0.975 | 0.967 to 0.983 | +0.0096 | +0.0025 to +0.0164 |
+| LR_mask_C10 | 0.962 | 0.952 to 0.972 | -0.0035 | -0.0072 to +0.0001 |
+| NB_mask | 0.820 | 0.795 to 0.844 | -0.1462 | -0.1696 to -0.1234 |
 
 **Finding.** The character n-gram SVM is significantly better than the selected model, by 0.010 of F1, mostly through fewer false positives. The protocol treated differences below 0.01 as equivalent without a test of significance. This margin was too wide for these data.
 
