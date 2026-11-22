@@ -123,6 +123,7 @@ Each notebook runs the tests of its phase and reproduces the figures of the matc
 | [03_model_selection](notebooks/03_model_selection.ipynb) | `docs/05_model_comparison.md` |
 | [04_test_evaluation](notebooks/04_test_evaluation.ipynb) | `docs/06_evaluation_and_error_analysis.md` |
 | [05_signals_and_risk](notebooks/05_signals_and_risk.ipynb) | `docs/07_risk_methodology.md` |
+| [06_study_obfuscation](notebooks/06_study_obfuscation.ipynb) | `docs/research_obfuscation_results.md` |
 
 To run them: `.venv/bin/pip install -e ".[notebooks]"`, then `.venv/bin/jupyter nbconvert --to notebook --execute --inplace notebooks/*.ipynb`.
 
