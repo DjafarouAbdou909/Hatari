@@ -110,7 +110,7 @@ tests/                  unit and integration tests
 
 Research studies, each preregistered before any computation:
 
-- [Robustness to obfuscated messages](docs/research_obfuscation.md)
+- [Robustness to obfuscated messages](docs/research_obfuscation.md), with [results](docs/research_obfuscation_results.md): the model resists most disguises but loses 7 points of recall to invisible characters, the rules lose up to 21 points, and a normalisation defence, now adopted, restores both.
 
 ## Notebooks
 
