@@ -1,0 +1,14 @@
+{
+  "configuration": "SVM_mask_C1",
+  "calibration": "Platt scaling on out-of-fold margins of five grouped folds",
+  "threshold": 0.5,
+  "training_messages": 4929,
+  "training_by_language": {
+    "en": 4812,
+    "fr": 117
+  },
+  "corpus_sha256": "06cc991149c52dd5592385a49086ed4f6821d3c7a35cb59aab157d63b8adf3f4",
+  "model_sha256": "9439ab133bc4d3c6b0e05e146d9a5a98e7279741139ca69c170cf3875b5a1eef",
+  "scikit_learn": "1.5.2",
+  "trained_at": "2026-11-22T18:38:00+00:00"
+}
