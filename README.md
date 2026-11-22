@@ -12,6 +12,7 @@ HATARI (Swahili for *danger*) analyses a suspicious text message and explains wh
 - [Dataset investigation and data audit](docs/02_data_audit.md)
 - [Exploratory analysis](docs/03_exploratory_analysis.md)
 - [Modelling protocol](docs/04_modelling_protocol.md)
+- [Model comparison](docs/05_model_comparison.md)
 
 ## Principles
 
