@@ -28,7 +28,8 @@ A signal is a pattern observed in the text. Each signal has a strength and retur
 | Investment promise | Medium | investissement, rendement garanti, doublez, crypto, profit |
 | Presents itself as an institution | Medium | service client, banque, customer care, a known operator |
 | Link | Weak | any web address |
-| Phone number to contact | Weak | a number with call, appelez, contactez |
+| Phone number | Weak | any phone number |
+| Email address | Weak | an address to write to, common in advance-fee fraud |
 | Amount of money | Weak | 2 000 FCFA, £100 |
 
 ## 7.3 Threat categories
@@ -72,3 +73,34 @@ The score is a ranking of concern, not a probability. It is never presented as t
 ## 7.6 Checks before use
 
 Before the interface uses the score, the signals are measured on the training part of the corpus. For each signal, the share of suspicious and legitimate messages that trigger it is reported. A signal that fires on more than 5% of legitimate English messages is revised or downgraded, and the revision is recorded in this document. The test set is not used for this check.
+
+**Results.** `python -m hatari.analysis.signal_check` gives the share of training messages that trigger each signal.
+
+| Signal | English legitimate | English suspicious | French legitimate | French suspicious |
+|---|---:|---:|---:|---:|
+| Request for money or fees | 0.2% | 7.9% | 0% | 14.3% |
+| Request for a code, PIN or password | 0% | 0.2% | 0% | 2.9% |
+| Threat on an account | 0% | 0.5% | 0% | 5.7% |
+| Shortened or disguised link | 0% | 0.7% | 0% | 0% |
+| Money transferred by mistake | 0% | 0.1% | 0% | 0% |
+| Promise of a prize or gain | 0.1% | 18.9% | 0% | 7.1% |
+| Artificial urgency | 1.2% | 11.8% | 2.1% | 27.1% |
+| Mobile Money context | 0% | 0% | 0% | 0% |
+| Job offer | 0.2% | 0% | 0% | 0% |
+| Investment promise | 0% | 0.2% | 0% | 7.1% |
+| Presents itself as an institution | 0.2% | 6.0% | 0% | 0% |
+| Link | 0.3% | 19.4% | 0% | 0% |
+| Email address | 0% | 1.8% | 0% | 0% |
+| Phone number | 0.2% | 58.4% | 0% | 0% |
+| Amount of money | 0.3% | 29.7% | 0% | 0% |
+
+- No signal fires on more than 1.2% of the legitimate English messages, so none needed revision.
+- Most signals fire on a small share of the suspicious messages. The English suspicious messages are mostly premium-rate spam, which rarely asks for money or codes directly. The signals are designed for the fraud of the target users, which these data barely contain.
+- The Mobile Money signal never fires on the training data. Its patterns can only be checked on hand-written examples, which are tests, not evidence.
+
+## 7.7 Known limitations of the method
+
+- The weights and thresholds are design choices. With no real French or West African data, they cannot be calibrated against observed fraud.
+- An advance-fee message that promises a large sum and gives an email address, without an explicit request for money, scores low. The test message of `docs/06_evaluation_and_error_analysis.md`, "I have 7.3milion Dollar to transfer to you… Contact …@gmail.com", obtains 23 out of 100 with the category "prize or lottery scam". The weights are not changed to fix this case, because it comes from the test set and a change would tune the method on it.
+- The specification example of section 4 of the brief obtains 95 out of 100 and a high risk, not a critical one, because it contains only one strong signal. The method was not adjusted to reproduce the example.
+- The language guess relies on frequent function words and can fail on very short or mixed messages.
