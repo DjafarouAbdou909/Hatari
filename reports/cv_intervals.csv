@@ -1,0 +1,5 @@
+candidate,messages,groups,precision_low,precision_high,recall_low,recall_high,f1_low,f1_high,f1_minus_selected,difference_low,difference_high
+SVM_mask_C1,4812,4700,0.961,0.9836,0.944,0.9707,0.9559,0.9744,,,
+SVM-char_normalize_C0.1,4812,4700,0.978,0.9941,0.9507,0.9762,0.9672,0.9826,0.0096,0.0025,0.0164
+LR_mask_C10,4812,4700,0.9542,0.979,0.943,0.9696,0.9523,0.9718,-0.0035,-0.0072,0.0001
+NB_mask,4812,4700,0.9944,1.0,0.6607,0.7302,0.7951,0.8436,-0.1462,-0.1696,-0.1234
