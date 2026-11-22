@@ -79,6 +79,10 @@ The raw data and the trained model are not versioned. The commands above rebuild
 
 Both work without internet access once the model is trained. Messages are analysed in memory and are not stored or logged.
 
+## Deployment
+
+The interface is deployed on Streamlit Community Cloud from this repository, with `app/streamlit_app.py` as entry point, Python 3.12 and the dependencies of `requirements.txt`. The hosted version uses the model versioned in `app/ressources`, refreshed after any retraining by `python -m hatari.models.export`. Details are in `docs/09_model_card.md`.
+
 ## Repository
 
 ```
