@@ -78,7 +78,7 @@ Before the interface uses the score, the signals are measured on the training pa
 
 | Signal | English legitimate | English suspicious | French legitimate | French suspicious |
 |---|---:|---:|---:|---:|
-| Request for money or fees | 0.2% | 7.9% | 0% | 14.3% |
+| Request for money or fees | 0.2% | 6.3% | 0% | 14.3% |
 | Request for a code, PIN or password | 0% | 0.2% | 0% | 2.9% |
 | Threat on an account | 0% | 0.5% | 0% | 5.7% |
 | Shortened or disguised link | 0% | 0.7% | 0% | 0% |
@@ -95,6 +95,7 @@ Before the interface uses the score, the signals are measured on the training pa
 | Amount of money | 0.3% | 29.7% | 0% | 0% |
 
 - No signal fires on more than 1.2% of the legitimate English messages, so none needed revision.
+- **Revision of 22 November 2026.** A bare number of three digits or more counted as a sum of money, so that "Envoyez votre code au 0707070707" was read as a request for money. A bare number now counts only when it has three to six digits. The rate on English suspicious messages fell from 7.9% to 6.3%, the other rates are unchanged.
 - Most signals fire on a small share of the suspicious messages. The English suspicious messages are mostly premium-rate spam, which rarely asks for money or codes directly. The signals are designed for the fraud of the target users, which these data barely contain.
 - The Mobile Money signal never fires on the training data. Its patterns can only be checked on hand-written examples, which are tests, not evidence.
 
